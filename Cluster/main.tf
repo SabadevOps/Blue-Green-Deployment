@@ -178,6 +178,7 @@ resource "aws_eks_cluster" "devopsshack" {
 
 ########################
 # EKS Managed Node Group
+# (remote_access removed completely)
 ########################
 resource "aws_eks_node_group" "devopsshack" {
   cluster_name    = aws_eks_cluster.devopsshack.name
@@ -192,15 +193,10 @@ resource "aws_eks_node_group" "devopsshack" {
   }
 
   instance_types = ["c7i-flex.large"]
-
-  remote_access {
-    ec2_ssh_key               = "kuku_Mumbai"
-    source_security_group_ids = [aws_security_group.devopsshack_node_sg.id]
-  }
 }
 
 ########################
-# Outputs (optional)
+# Outputs
 ########################
 output "cluster_name" {
   value = aws_eks_cluster.devopsshack.name
